@@ -4,9 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>T-Shirts</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: contain;
+      background: #f5f5f5;
+    }
+
+    .title {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .out {
+      color: red;
+      font-weight: bold;
+    }
+
+    .row {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+  </style>
 </head>
+
 <body>
-  
-  
+
+  <h1>T-Shirts Store</h1>
+
+  <div id="app" class="grid"></div>
+
+  <script src="t-shirts.js"></script>
+
 </body>
 </html>

@@ -63,3 +63,72 @@ const tshirts = [
     quantity: 1
   }
 ]
+const $app = document.getElementById('app');
+
+function render() {
+
+  $app.innerHTML = tshirts.map((shirt, index) => {
+
+    const stockDisplay =
+      shirt.stock === 0
+        ? `<div class="out">Out of Stock</div>`
+        : `<div><strong>Stock:</strong> ${shirt.stock}</div>`;
+
+    const controls =
+      shirt.stock > 0
+        ? `
+        <div class="row">
+          <select data-action="qty" data-index="${index}">
+            ${Array.from({ length: shirt.stock }, (_, i) =>
+              `<option value="${i + 1}">${i + 1}</option>`
+            ).join('')}
+          </select>
+
+          <button data-action="buy" data-index="${index}">
+            Buy
+          </button>
+        </div>
+        `
+        : '';
+
+    return `
+      <div class="card">
+        <img src="images/${shirt.image}" alt="${shirt.title}">
+        <div class="title">${shirt.title}</div>
+        <div>Price: $${shirt.price.toFixed(2)}</div>
+        ${stockDisplay}
+        ${controls}
+      </div>
+    `;
+  }).join('');
+}
+
+
+$app.addEventListener('change', function (e) {
+
+  if (e.target.dataset.action === 'qty') {
+    const index = Number(e.target.dataset.index);
+    tshirts[index].quantity = Number(e.target.value);
+  }
+
+});
+
+
+
+$app.addEventListener('click', function (e) {
+
+  if (e.target.dataset.action === 'buy') {
+
+    const index = Number(e.target.dataset.index);
+    const shirt = tshirts[index];
+
+    const qty = Math.min(shirt.quantity, shirt.stock);
+
+    shirt.stock -= qty;
+
+    render();
+  }
+
+});
+
+render();
